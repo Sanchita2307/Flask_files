@@ -1,0 +1,25 @@
+# used to create multiple servcices - creates image, pushes data to db, st
+version: "3.9"
+
+services:
+  web:
+    build: . 
+    container_name: flask_docker_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  db:
+    image: postgres
+    container_name: postgres_db_b14
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:

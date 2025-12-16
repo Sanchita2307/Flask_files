@@ -1,0 +1,5 @@
+secured copy from python terminal 
+scp -i /path/to/private_key.pem /path/to/local_file username@remote_host:/remote/directory/
+
+scp -i "C:\Users\l\OneDrive\Desktop\Python_datascience\pem-key-for-paramiko.pem"  /path/to/local_file username@remote_host:/remote/directory/
+

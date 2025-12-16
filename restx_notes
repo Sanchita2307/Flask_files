@@ -1,0 +1,72 @@
+flask_restx_crud
+   - app.py
+   - config.py
+   - models -folder
+      - user_model.py
+   - dao
+      - user_dao.py
+   - providers
+      - user_provider.py
+   - resources
+      - user_resource.py
+   - routes
+      - user_routes.py
+   - extension
+      - db.py 
+   - schemas
+      - user_schema
+
+
+- pip install marshmallow
+
+- pip install Flask-JWT-Extended
+
+- generating secret_key :
+- type python on bash
+0 >>> import secrets
+>>> secret_key = secrets.token_hex(32)
+>>> print(secret_key)
+08d6a07b5e11d987a49b05f3b25f0d71da9e0747038a0e8cec8a474ab066297a
+
+- create a new file auth_resource.py --> jwt logic
+
+- POST http://127.0.0.1:5000/auth/register --> registered below user
+
+ - {
+    "name": "Sanchita",
+    "email": "s@gmail.com",
+    "mobile": 873443,
+    "salary": 844244,
+    "password": "Sanchita"
+}
+
+- GET http://127.0.0.1:5000/auth/login --> login using your email and passowrd as you created in code
+
+ - {
+    "email": "s@gmail.com",
+    "password": "Sanchita"
+}
+ 
+
+- http://127.0.0.1:5000/auth/protected
+
+{
+  "access_token": "<JWT_TOKEN_HERE>"
+}
+
+- use your token 
+ - GET http://127.0.0.1:5000/auth/protected
+   Headers:
+   Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+
+- you get the message as see below:
+{
+    "message": "Hello user 9, you are logged in!"
+}
+
+- now you will be able to access all your protected routes through postman
+
+- when you try accessing swagger, you need to provide autherization - add Bearer <jwt_token>
+
+soft delete url --> http://127.0.0.1:5000/users/soft/3 
+ - defined a separate end point to diffrentiate b/w delete and soft delete, else soft would work like delete only

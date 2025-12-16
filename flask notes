@@ -1,0 +1,58 @@
+- Install Flask SQLAlchemy --> create database (similar to Django orm)
+  - pip install flask_sqlalchemy mysqlclient --> db created
+
+- create a file --> app.py
+- in app.py
+  - from flask import Flask, request, jsonify
+  - from flask_sqlalchemy import SQLAlchemy
+
+ - alembic --> pip install alembic --> enables you to make changes in runtime like adding a col mobile 
+  - create 
+    - app.py 
+    - config.py
+    - models.py
+
+- cd alembic_practice --> go to your folder 
+- alembic init migrations --> creates migrations, alembic.ini file 
+  - inside migrations --> vesrion (folder) and env.py
+
+- make change in your alembic.ini file --> sqlalchemy.url = mysql://root:root@localhost/b14_flask
+
+- env.py
+  - from models import db
+  - target_metadata = db.metadata
+
+- alembic revision --autogenerate -m "create employees table" --> willcreate a file that has a db code ready converted from model
+ - before running above commands:
+  - pip install flask_alchemy
+  - pip install pymysql
+  - pip install mysqlclient
+
+- alembic upgrade head --> to push the migrations into db --> in version,a file is created 
+  upgrade code will be pushed from that file into db
+
+- alembic downgrade base --> deleted the table 
+
+- alembic revision --autogenerate -m "create department table" --> made changes in Employee model and create department model
+
+- alembic downgrade -1 --> go back 1 migration
+
+- alembic downgrade -1 --> take 1 more step back 
+
+- alembic downgrade -4 --> go back by 4 steps etc.
+
+- alembic upgrade head --> all the availablke migrations will be pushed to db
+
+- jwt authentication 
+  - pip install flask-jwt-extended
+
+- flask restx
+  - pip install flas_restx
+  - app.py, models.py, config.py , requirement.txt
+  - pip freeze > requirements.txt --> creates the file
+  - pip install > requirements.txt --> to install the file
+
+- flask run --> open url --> http://127.0.0.1:5000
+- flask run --dubug --> automatically restrtas the server, changes will be reflected
+
+

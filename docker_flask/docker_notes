@@ -1,0 +1,41 @@
+- create a folder docker_flask
+ - app.py
+ - Dockerfile --> here the image code will be written --> python:3.10-slim reduces size of image
+ - create requriements.txt --> pip freeze> requirements.txt
+
+- docker build -t flask_b14 . --> this will build your image in docket texttop app in Images section
+ - by defualt the image's tag will be latest if you do not give any version at the time of building
+ - docker build -t flask_b14:1 . --> will create image as flask_b14:1
+ - click on image --> analyse --> will give details about it, all the commands etc.
+
+- docker build -t flask_b14 . --> docker build -t tage_name:version .
+
+ - docker images --> lists down all the images
+
+ - docker run -p 5000:5000 image_name --> to run image --> 5000 is local desk port and docker's por
+  - this pushes your image in container and container will be in running state
+  - heuristic_mccarthy - random name is generated --> takes scientists names
+  - ctrl+c --> breaks the run at console --> results in stopping of container at docker desk
+
+- click on image(b14_flask) --> run --> additional settings --> container name --> port
+  - do not use 5000 port or else your container won't work --> error 500 --> I used 5001
+  - if you don't name continer simply run --> it will take a random name
+
+- docker ps --> lists down all the running containers
+- docker ps -a --> lists down all the active and inactive containers
+
+- click on container --> files --> edit app.py --> change message --> save --> refresh --> 
+  --> click on url --> new message will display 
+  - if you do this procedure with your duplciate containers that you have creted
+  changes won't refelect in the url 
+- changes in live container is just foir tetsing purpose not recommended
+- whatever change you make has to be done in your app.py 
+- for every chnage you need to build a new image
+
+- docker stop container_id --> to stop any container from console 
+- docker start container_id  --> to start any container from console
+
+- docker rm container_id
+- docker rmi image_id (all the containers associated to any image have to be dleeted first)
+
+

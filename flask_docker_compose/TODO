@@ -1,0 +1,122 @@
+Got it! You want a Docker Compose setup that can run multiple applications together, e.g., Flask apps with PostgreSQL, MySQL, or other services. Here's a ready-to-use example for 3 services:
+
+Flask App 1 → connects to PostgreSQL
+
+Flask App 2 → connects to MySQL
+
+PostgreSQL
+
+MySQL
+
+Docker Compose File (docker-compose.yml)
+version: "3.9"
+
+services:
+  # Flask App 1 (Postgres)
+  flask_app_1:
+    build: ./flask_app_1
+    container_name: flask_app_1
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres_db
+    environment:
+      DB_HOST: postgres_db
+      DB_NAME: mydb
+      DB_USER: postgres
+      DB_PASSWORD: admin
+    restart: always
+
+  # Flask App 2 (MySQL)
+  flask_app_2:
+    build: ./flask_app_2
+    container_name: flask_app_2
+    ports:
+      - "5001:5000"
+    depends_on:
+      - mysql_db
+    environment:
+      DB_HOST: mysql_db
+      DB_NAME: mydb
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+    restart: always
+
+  # PostgreSQL database
+  postgres_db:
+    image: postgres:17
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    restart: always
+
+  # MySQL database
+  mysql_db:
+    image: mysql:8
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+
+volumes:
+  pgdata:
+  mysqldata:
+
+🔹 How to use
+
+Create folders for your Flask apps:
+
+project/
+│
+├─ flask_app_1/
+│   └─ Dockerfile
+│
+├─ flask_app_2/
+│   └─ Dockerfile
+│
+└─ docker-compose.yml
+
+
+Example Flask Dockerfile (for each app):
+
+FROM python:3.10-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python", "app.py"]
+
+
+Environment variables inside Flask:
+
+import os
+DB_HOST = os.environ.get("DB_HOST")
+DB_NAME = os.environ.get("DB_NAME")
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+
+
+Run everything:
+
+docker compose up --build
+
+
+Flask App 1 → http://localhost:5000
+
+Flask App 2 → http://localhost:5001
+
+PostgreSQL → localhost:5432
+
+MySQL → localhost:3306

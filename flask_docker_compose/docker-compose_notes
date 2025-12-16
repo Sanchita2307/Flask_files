@@ -1,0 +1,24 @@
+- file name must be docker-compose.yml not docker_compose.yml else the build composition won't work
+- pip install psycopg2
+
+- python.exe -m pip install --upgrade pip --> above gave me warning of running this so did
+
+- pip install psycopg2-binary --> none of the above worked so this
+
+- Dockerfile --> logic to create image of application, only creates image
+
+- docker_compose.yml --> we now need db too, and maybe other services so use this
+
+- pgdata:/var/lib/postgres/data --> volume of postgres in docker compose file
+
+- docker compose up --build 
+ - on console
+ ✔ flask_docker_compose-web              Built                                                       0.0s 
+ ✔ Network flask_docker_compose_default  Created                                                     0.2s 
+ ✔ Volume flask_docker_compose_pgdata    Created                                                     0.0s 
+ ✔ Container postgres_db_b14             Created                                                     0.6s 
+ ✔ Container flask_docker_app            Created 
+
+- http://localhost:5000/ 
+
+- docker rm 76f3c0ab0774 --> when not able to dleet container at docker
